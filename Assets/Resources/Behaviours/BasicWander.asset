@@ -15,6 +15,6 @@ MonoBehaviour:
   offset: 0
   radius: 1
   delta: 0.01
-  attractorStrength: 0
+  attractorStrength: 1
   attractors:
-  - {x: -0.88, y: 0}
+  - {x: 0, y: 0}

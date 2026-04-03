@@ -10,7 +10,7 @@ public class WanderBehaviour : AntBehaviour
     [SerializeField, Tooltip("The length of step around projected circle")]
     private float delta;
     [SerializeField, Tooltip("How strongly the attractor points will attract ants")]
-    private float attractorStrength;
+    private float attractorStrength = 1;
     [SerializeField, Tooltip("Points in the world that the ant will move toward")]
     private Vector2[] attractors;
 
@@ -18,13 +18,21 @@ public class WanderBehaviour : AntBehaviour
         WanderData data = ant.GetBehaviourData<WanderData>();
 
         Vector2 fromOrigin = new Vector2(Mathf.Cos(data.radians), Mathf.Sin(data.radians)) * radius;
-        Vector2 velocity = (ant.forward * offset) + fromOrigin;
+        Vector2 wanderVelocity = (ant.forward * offset) + fromOrigin;
         
         // step around circle and store data in agent
-        data.Step(delta, radius);
+        float randomgSign = Random.Range(-1, 2);
+        data.Step(delta * randomgSign, radius);
         ant.StoreBehaviourData(data);
         
-        return velocity;
+        // attract 
+        Vector2 sum = Vector2.zero;
+        foreach (Vector2 attractor in attractors) {
+            sum += (attractor - ant.position) * attractorStrength;
+        }
+        Vector2 attractorVelocity = sum / attractors.Length;
+        
+        return (wanderVelocity + attractorVelocity) / 2;
     }
 
     public override void DrawInstanceGizmos(Ant ant, World world) {
