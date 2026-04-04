@@ -12,6 +12,7 @@ public class Ant : MonoBehaviour
     public Vector2 velocity { get; private set; }
     public Vector2 position => (Vector2)transform.position;
     public Vector2 forward => (Vector2)transform.up;
+    public Vector2 right => (Vector2)transform.right;
     
     private void Start()
     {

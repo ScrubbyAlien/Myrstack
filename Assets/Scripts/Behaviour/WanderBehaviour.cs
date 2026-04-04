@@ -3,36 +3,61 @@
 [CreateAssetMenu(fileName = "NewWanderBehaviour", menuName = "Behaviour/Wander")]
 public class WanderBehaviour : AntBehaviour
 {
-    [SerializeField, Tooltip("The distance in front of the ant where the origin of the circle is projected")]
-    private float offset;
-    [SerializeField, Tooltip("The radius of the projected circle")]
-    private float radius;
-    [SerializeField, Tooltip("The length of step around projected circle")]
-    private float delta;
-    [SerializeField, Tooltip("How strongly the attractor points will attract ants")]
-    private float attractorStrength = 1;
+    [Header("Wander")]
+    [SerializeField]
+    private float wanderWeight = 1f;
+    [SerializeField, Min(0)]
+    private float speed;
+    [SerializeField, Range(0f, 1f), Tooltip("How willing the ant is to change direction")]
+    private float curiosity;
+
+    [Header("Avoidance")]
+    [SerializeField, Tooltip("How much will the ant avoid other ants")]
+    private float avoidanceWeight = 1f;
+    [SerializeField, Tooltip("Ant will only avoid other ants within radius")]
+    private float avoidanceRadius;
+    
+    [Header("Attractor")]
+    [SerializeField]
+    private float attractorWeight = 1f;
     [SerializeField, Tooltip("Points in the world that the ant will move toward")]
     private Vector2[] attractors;
 
     public override Vector2 GetVelocity(Ant ant, World world) {
-        WanderData data = ant.GetBehaviourData<WanderData>();
+        Vector2 wanderVelocity = GetWanderVelocity(ant);
+        Vector2 avoidanceVelocity = GetAvoidanceVelocity(ant, world);
+        Vector2 attractorVelocity = GetAttractionVelocity(ant);
 
-        Vector2 fromOrigin = new Vector2(Mathf.Cos(data.radians), Mathf.Sin(data.radians)) * radius;
-        Vector2 wanderVelocity = (ant.forward * offset) + fromOrigin;
+        Vector2 weightedSum = GetWeightedSum(
+            new Vector2Weight(wanderVelocity, wanderWeight),
+            new Vector2Weight(avoidanceVelocity, avoidanceWeight),
+            new Vector2Weight(attractorVelocity, attractorWeight)
+        );
         
-        // step around circle and store data in agent
-        float randomgSign = Random.Range(-1, 2);
-        data.Step(delta * randomgSign, radius);
-        ant.StoreBehaviourData(data);
-        
-        // attract 
+        return weightedSum.normalized * speed;
+    }
+
+    private Vector2 GetWanderVelocity(Ant ant) {
+        return ant.forward + Random.insideUnitCircle * (curiosity);
+    }
+
+    private Vector2 GetAttractionVelocity(Ant ant) {
         Vector2 sum = Vector2.zero;
         foreach (Vector2 attractor in attractors) {
-            sum += (attractor - ant.position) * attractorStrength;
+            sum += (attractor - ant.position);
         }
-        Vector2 attractorVelocity = sum / attractors.Length;
-        
-        return (wanderVelocity + attractorVelocity) / 2;
+        return sum / attractors.Length;
+    }
+
+    private Vector2 GetAvoidanceVelocity(Ant ant, World world) {
+        Vector2 sum = Vector2.zero;
+        foreach (Ant otherAnt in world.allAnts) {
+            if (ant == otherAnt) continue;
+            Vector2 diff = ant.position - otherAnt.position;
+            if (diff.sqrMagnitude > avoidanceRadius * avoidanceRadius) continue;
+            sum += diff / diff.sqrMagnitude;
+        }
+        return sum;
     }
 
     public override void DrawInstanceGizmos(Ant ant, World world) {
@@ -43,19 +68,6 @@ public class WanderBehaviour : AntBehaviour
         Gizmos.color = Color.red;
         foreach (Vector2 attractor in attractors) {
             Gizmos.DrawSphere(attractor, 0.05f);
-        }
-    }
-
-    private class WanderData
-    {
-        public float radians;
-        
-        public WanderData() {
-            radians = Random.Range(0, 2 * Mathf.PI);
-        }
-
-        public void Step(float delta, float radius) {
-            radians += delta / radius;
         }
     }
 }

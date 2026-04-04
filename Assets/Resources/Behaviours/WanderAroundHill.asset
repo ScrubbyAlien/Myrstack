@@ -10,11 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f8108e108404a828504795b5c063822, type: 3}
-  m_Name: BasicWander
+  m_Name: WanderAroundHill
   m_EditorClassIdentifier: 
-  offset: 0
-  radius: 1
-  delta: 0.01
-  attractorStrength: 1
+  wanderWeight: 1.8
+  speed: 1.89
+  curiosity: 0.204
+  avoidanceWeight: 0.1
+  avoidanceRadius: 1
+  attractorWeight: 0.34
   attractors:
   - {x: 0, y: 0}
