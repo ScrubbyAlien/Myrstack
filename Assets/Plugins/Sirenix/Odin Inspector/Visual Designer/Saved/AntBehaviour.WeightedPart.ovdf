@@ -1,0 +1,23 @@
+OVDF v1.1
+AntBehaviour+WeightedPart, Assembly-CSharp
+
+# $6iYTRXNYyFSuyrd8D29DVG
+Position: $FReNuqSfsTTjDQS8SsQt3z:1
++ [Sirenix.OdinInspector.HorizontalGroupAttribute]
+
+# $FReNuqSfsTTjDQS8SsQt3z
+Position: $root:1
++ [Sirenix.OdinInspector.TitleGroupAttribute]
+	GroupName = "$name"
+
+# weight
+Position: $6iYTRXNYyFSuyrd8D29DVG:0
+
+# part
+Position: $FReNuqSfsTTjDQS8SsQt3z:0
++ [Sirenix.OdinInspector.InlineEditorAttribute]
++ [Sirenix.OdinInspector.HideLabelAttribute]
+
+# hideGizmos
+Position: $6iYTRXNYyFSuyrd8D29DVG:1
++ [Sirenix.OdinInspector.ToggleLeftAttribute]

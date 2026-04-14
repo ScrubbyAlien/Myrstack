@@ -1,35 +1,41 @@
+using System;
 using System.Linq;
 using UnityEngine;
 
-public abstract class AntBehaviour : ScriptableObject
+[CreateAssetMenu(fileName = "New Ant Behaviour", menuName = "Behaviour/Ant Behaviour")]
+public class AntBehaviour : ScriptableObject
 {
-    public abstract Vector2 GetVelocity(Ant ant, World world);
-    public virtual void DrawInstanceGizmos(Ant ant, World world) { }
-    public virtual void DrawStaticGizmos() { }
+    [SerializeField]
+    protected WeightedPart[] parts;
+    
+    public Vector2 GetWeightedSum(Ant ant, World world) {
+        return GetWeightedSum(ant, world, parts);
+    }
 
-    protected Vector2 GetWeightedSum(params Vector2Weight[] vectors) {
-        float totalWeight = vectors.Select(v => v.weight).Sum();
+    protected Vector2 GetWeightedSum(Ant ant, World world, params WeightedPart[] weightedParts) {
+        float totalWeight = weightedParts.Select(v => v.weight).Sum();
         
         Vector2 sum = Vector2.zero;
-        foreach (Vector2Weight vw in vectors) {
-            sum += vw.v2 * (vw.weight / totalWeight);
+        foreach (WeightedPart weightedPart in weightedParts) {
+            sum += weightedPart.part.GetVelocity(ant, world) * (weightedPart.weight / totalWeight);
         }
 
         return sum;
     }
 
-    protected Vector2 GetWeightedSum(params Vector2[] vectors) {
-        return GetWeightedSum(vectors.Select(v => new Vector2Weight(v, 1)).ToArray());
-    }
-
-    protected struct Vector2Weight
-    {
-        public Vector2 v2;
-        public float weight;
-        
-        public Vector2Weight(Vector2 v2, float weight) {
-            this.v2 = v2;
-            this.weight = weight;
+    public void DrawInstanceGizmos(Ant ant, World world) {
+        foreach (WeightedPart part in parts) {
+            if (part.hideGizmos) continue;
+            part.part.DrawInstanceGizmos(ant, world);
         }
+    }
+    
+    [Serializable]
+    protected struct WeightedPart
+    {
+        public string name => part.name;
+        public float weight;
+        public PartBehaviour part;
+        public bool hideGizmos;
     }
 }

@@ -125,7 +125,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   world: {fileID: 11400000, guid: fb848b147a7ae7d44b4a6c5988191cd9, type: 2}
-  behaviour: {fileID: 11400000, guid: 8b4ad8331f27b034186527d6372cd7c3, type: 2}
+  behaviour: {fileID: 11400000, guid: 7030bf117e0ced5478e407836b4945d5, type: 2}
+  maxSpeed: 2
+  minSpeed: 0.5
 --- !u!61 &7789010466975875512
 BoxCollider2D:
   m_ObjectHideFlags: 0

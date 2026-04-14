@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Ant : MonoBehaviour
 {
@@ -7,6 +8,10 @@ public class Ant : MonoBehaviour
     private World world;
     [SerializeField]
     private AntBehaviour behaviour;
+    [SerializeField]
+    private float maxSpeed;
+    [SerializeField]
+    private float minSpeed;
     private object behaviourData;
     
     public Vector2 velocity { get; private set; }
@@ -17,11 +22,14 @@ public class Ant : MonoBehaviour
     private void Start()
     {
         world.RegisterAnt(this);
+        velocity = Random.insideUnitCircle;
     }
     
     private void FixedUpdate()
     {
-        velocity = behaviour.GetVelocity(this, world);
+        velocity += behaviour.GetWeightedSum(this, world);
+        velocity = Vector2.ClampMagnitude(velocity, maxSpeed);
+        if (velocity.magnitude < minSpeed) velocity = velocity.normalized * minSpeed;
     }
 
     private void Update() {

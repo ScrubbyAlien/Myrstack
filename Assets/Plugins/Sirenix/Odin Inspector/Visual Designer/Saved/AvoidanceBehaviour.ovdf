@@ -1,0 +1,18 @@
+OVDF v1.1
+AvoidanceBehaviour, Assembly-CSharp
+MetaGuid:f879e0e5faace7d4691a902099975e23
+
+# $QnFqht47oKTwf8mzS5y3N7
+Position: $root:0
++ [Sirenix.OdinInspector.HorizontalGroupAttribute]
+	Title = "Radius"
+
+# avoidanceRadius
+Position: $QnFqht47oKTwf8mzS5y3N7:0
++ [Sirenix.OdinInspector.LabelTextAttribute]
+	Text = "Max"
+
+# minRadius
+Position: $QnFqht47oKTwf8mzS5y3N7:1
++ [Sirenix.OdinInspector.LabelTextAttribute]
+	Text = "Min"

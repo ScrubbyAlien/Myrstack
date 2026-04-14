@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9adcff9ef8166d64eb0c280dae71ac52, type: 3}
+  m_Name: WanderAroundHill
+  m_EditorClassIdentifier: 
+  parts:
+  - weight: 2.09
+    part: {fileID: 11400000, guid: 8b4ad8331f27b034186527d6372cd7c3, type: 2}
+  - weight: 0.19
+    part: {fileID: 11400000, guid: 55bb3757ae00f084b9f8b0cbd9868bd3, type: 2}
+  - weight: 0.06
+    part: {fileID: 11400000, guid: a2b5ab0a9125ed24a95a4c668148ab69, type: 2}

@@ -1,0 +1,22 @@
+OVDF v1.1
+Ant, Assembly-CSharp
+MetaGuid:77a0f5ecda11f3a4eb768b9fae520184
+
+# $13tzUEN8QGYe7KYRLTYotv
+Position: $root:2
++ [Sirenix.OdinInspector.HorizontalGroupAttribute]
+	Title = "Speed"
+
+# maxSpeed
+Position: $13tzUEN8QGYe7KYRLTYotv:1
++ [Sirenix.OdinInspector.LabelTextAttribute]
+	Text = "Max"
++ [Sirenix.OdinInspector.LabelWidthAttribute]
+	Width = -33.8
+
+# minSpeed
+Position: $13tzUEN8QGYe7KYRLTYotv:0
++ [Sirenix.OdinInspector.LabelTextAttribute]
+	Text = "Min"
++ [Sirenix.OdinInspector.LabelWidthAttribute]
+	Width = -35.9
