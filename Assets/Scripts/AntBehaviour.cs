@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -13,10 +14,11 @@ public class AntBehaviour : ScriptableObject
     }
 
     protected Vector2 GetWeightedSum(Ant ant, World world, params WeightedPart[] weightedParts) {
-        float totalWeight = weightedParts.Select(v => v.weight).Sum();
+        IEnumerable<WeightedPart> enabled = weightedParts.Where(v => !v.disabled);
+        float totalWeight = enabled.Select(v => v.weight).Sum();
         
         Vector2 sum = Vector2.zero;
-        foreach (WeightedPart weightedPart in weightedParts) {
+        foreach (WeightedPart weightedPart in enabled) {
             sum += weightedPart.part.GetVelocity(ant, world) * (weightedPart.weight / totalWeight);
         }
 
@@ -25,7 +27,7 @@ public class AntBehaviour : ScriptableObject
 
     public void DrawInstanceGizmos(Ant ant, World world) {
         foreach (WeightedPart part in parts) {
-            if (part.hideGizmos) continue;
+            if (part.hideGizmos || part.disabled) continue;
             part.part.DrawInstanceGizmos(ant, world);
         }
     }
@@ -37,5 +39,6 @@ public class AntBehaviour : ScriptableObject
         public float weight;
         public PartBehaviour part;
         public bool hideGizmos;
+        public bool disabled;
     }
 }

@@ -6,18 +6,28 @@ Position: $FReNuqSfsTTjDQS8SsQt3z:1
 + [Sirenix.OdinInspector.HorizontalGroupAttribute]
 
 # $FReNuqSfsTTjDQS8SsQt3z
-Position: $root:1
+Position: $root:0
 + [Sirenix.OdinInspector.TitleGroupAttribute]
 	GroupName = "$name"
 
 # weight
 Position: $6iYTRXNYyFSuyrd8D29DVG:0
++ [Sirenix.OdinInspector.DisableIfAttribute]
+	Condition = "$disabled"
 
 # part
 Position: $FReNuqSfsTTjDQS8SsQt3z:0
 + [Sirenix.OdinInspector.InlineEditorAttribute]
 + [Sirenix.OdinInspector.HideLabelAttribute]
++ [Sirenix.OdinInspector.DisableIfAttribute]
+	Condition = "$disabled"
 
 # hideGizmos
 Position: $6iYTRXNYyFSuyrd8D29DVG:1
++ [Sirenix.OdinInspector.ToggleLeftAttribute]
++ [Sirenix.OdinInspector.DisableIfAttribute]
+	Condition = "$disabled"
+
+# disabled
+Position: $6iYTRXNYyFSuyrd8D29DVG:2
 + [Sirenix.OdinInspector.ToggleLeftAttribute]
