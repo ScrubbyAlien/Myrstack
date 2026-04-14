@@ -1,0 +1,24 @@
+OVDF v1.1
+AttractionBehaviour+Attractor, Assembly-CSharp
+
+# $8ErRGsfF5ps5BXkJkbEC7S
+Position: $root:0
++ [Sirenix.OdinInspector.ColumnGroupAttribute]
+
+# $YLa4anTQZ7Vxes4LgpH4cd
+Position: $8ErRGsfF5ps5BXkJkbEC7S:0
++ [Sirenix.OdinInspector.ColumnGroupAttribute+ColumnSubGroupAttribute]
+	Size = 60 %
+
+# $KyTEo9SZEaJ5ywWCyET7j3
+Position: $8ErRGsfF5ps5BXkJkbEC7S:1
++ [Sirenix.OdinInspector.ColumnGroupAttribute+ColumnSubGroupAttribute]
+	Size = 40 %
+
+# minDistance
+Position: $KyTEo9SZEaJ5ywWCyET7j3:0
++ [Sirenix.OdinInspector.LabelWidthAttribute]
+	Width = 87.58
+
+# origin
+Position: $YLa4anTQZ7Vxes4LgpH4cd:0

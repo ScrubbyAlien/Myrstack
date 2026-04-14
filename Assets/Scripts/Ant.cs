@@ -42,7 +42,6 @@ public class Ant : MonoBehaviour
     }
 
     private void UpdatePosition(Vector2 velocity) {
-        
         float angle = Vector2.SignedAngle(velocity, Vector2.up);
         transform.localEulerAngles = new Vector3(0, 0, -angle);
         transform.position += (Vector3)velocity * Time.deltaTime;

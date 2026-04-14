@@ -1,33 +1,74 @@
 OVDF v1.1
 AntBehaviour+WeightedPart, Assembly-CSharp
 
-# $6iYTRXNYyFSuyrd8D29DVG
-Position: $FReNuqSfsTTjDQS8SsQt3z:1
-+ [Sirenix.OdinInspector.HorizontalGroupAttribute]
-
-# $FReNuqSfsTTjDQS8SsQt3z
-Position: $root:0
-+ [Sirenix.OdinInspector.TitleGroupAttribute]
+# $VAUpYaPkzEEdg1Yp9HBdf3
+Position: $root:1
++ [Sirenix.OdinInspector.FoldoutGroupAttribute]
+	expanded = True
+	HasDefinedExpanded = True
 	GroupName = "$name"
 
+# $USWnAd9YnWFLLhsazmVkhC
+Position: $VAUpYaPkzEEdg1Yp9HBdf3:0
++ [Sirenix.OdinInspector.ColumnGroupAttribute]
+
+# $QbcqQbTR2EdGx1X3nKsUgB
+Position: $USWnAd9YnWFLLhsazmVkhC:0
++ [Sirenix.OdinInspector.ColumnGroupAttribute+ColumnSubGroupAttribute]
+
+# $BL4523STYwLfiRqKWa18si
+Position: $USWnAd9YnWFLLhsazmVkhC:1
++ [Sirenix.OdinInspector.ColumnGroupAttribute+ColumnSubGroupAttribute]
+
+# $HKnEnFk9LgwMRqTcsTf2VP
+Position: $VAUpYaPkzEEdg1Yp9HBdf3:1
++ [Sirenix.OdinInspector.ColumnGroupAttribute]
+
+# $oHDgg2Wznbnc3dzxndPom
+Position: $HKnEnFk9LgwMRqTcsTf2VP:0
++ [Sirenix.OdinInspector.ColumnGroupAttribute+ColumnSubGroupAttribute]
+	Size = Auto
+
+# $U1KsCXmczJUWKuEXQXJgHn
+Position: $HKnEnFk9LgwMRqTcsTf2VP:1
++ [Sirenix.OdinInspector.ColumnGroupAttribute+ColumnSubGroupAttribute]
+	Size = 20 px
+
+# $93Cyad2paNrnqYyWtXjCA4
+Position: $VAUpYaPkzEEdg1Yp9HBdf3:2
++ [Sirenix.OdinInspector.ColumnGroupAttribute]
+
+# $SdZvaZVtixwFX8q3qKLvXK
+Position: $93Cyad2paNrnqYyWtXjCA4:0
++ [Sirenix.OdinInspector.ColumnGroupAttribute+ColumnSubGroupAttribute]
+
+# $14CxzC3spnGZbDfbXGTQHA
+Position: $93Cyad2paNrnqYyWtXjCA4:1
++ [Sirenix.OdinInspector.ColumnGroupAttribute+ColumnSubGroupAttribute]
+
 # weight
-Position: $6iYTRXNYyFSuyrd8D29DVG:0
+Position: $SdZvaZVtixwFX8q3qKLvXK:0
 + [Sirenix.OdinInspector.DisableIfAttribute]
 	Condition = "$disabled"
 
 # part
-Position: $FReNuqSfsTTjDQS8SsQt3z:0
+Position: $oHDgg2Wznbnc3dzxndPom:0
 + [Sirenix.OdinInspector.InlineEditorAttribute]
 + [Sirenix.OdinInspector.HideLabelAttribute]
 + [Sirenix.OdinInspector.DisableIfAttribute]
 	Condition = "$disabled"
 
 # hideGizmos
-Position: $6iYTRXNYyFSuyrd8D29DVG:1
+Position: $14CxzC3spnGZbDfbXGTQHA:0
 + [Sirenix.OdinInspector.ToggleLeftAttribute]
 + [Sirenix.OdinInspector.DisableIfAttribute]
 	Condition = "$disabled"
 
 # disabled
-Position: $6iYTRXNYyFSuyrd8D29DVG:2
-+ [Sirenix.OdinInspector.ToggleLeftAttribute]
+Position: $root:0
++ [Sirenix.OdinInspector.LabelTextAttribute]
+	Text = "$name"
+
+# enabled
+Position: $U1KsCXmczJUWKuEXQXJgHn:0
++ [Sirenix.OdinInspector.HideLabelAttribute]

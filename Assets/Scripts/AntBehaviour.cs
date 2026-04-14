@@ -14,7 +14,7 @@ public class AntBehaviour : ScriptableObject
     }
 
     protected Vector2 GetWeightedSum(Ant ant, World world, params WeightedPart[] weightedParts) {
-        IEnumerable<WeightedPart> enabled = weightedParts.Where(v => !v.disabled);
+        IEnumerable<WeightedPart> enabled = weightedParts.Where(v => v.enabled);
         float totalWeight = enabled.Select(v => v.weight).Sum();
         
         Vector2 sum = Vector2.zero;
@@ -27,7 +27,7 @@ public class AntBehaviour : ScriptableObject
 
     public void DrawInstanceGizmos(Ant ant, World world) {
         foreach (WeightedPart part in parts) {
-            if (part.hideGizmos || part.disabled) continue;
+            if (part.hideGizmos || !part.enabled) continue;
             part.part.DrawInstanceGizmos(ant, world);
         }
     }
@@ -35,10 +35,16 @@ public class AntBehaviour : ScriptableObject
     [Serializable]
     protected struct WeightedPart
     {
-        public string name => part.name;
+        public string name {
+            get {
+                if (part) return part.name;
+                else return "Undefined part behaviour";
+            }
+        }
         public float weight;
         public PartBehaviour part;
         public bool hideGizmos;
-        public bool disabled;
+        public bool enabled;
+        public bool disabled => !enabled;
     }
 }

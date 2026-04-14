@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Attraction
   m_EditorClassIdentifier: 
   attractors:
-  - {x: 0, y: 0}
+  - origin: {x: 0, y: 0}
+    minDistance: 2.1
