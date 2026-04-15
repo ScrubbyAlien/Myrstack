@@ -1,0 +1,19 @@
+OVDF v1.1
+WanderBehaviour, Assembly-CSharp
+MetaGuid:1f8108e108404a828504795b5c063822
+
+# $2nGbbMnq7TCLBb2sHGw8T5
+Position: $root:0
++ [Sirenix.OdinInspector.HorizontalGroupAttribute]
+	Title = "Angular Velocity"
+	LabelWidth = 30
+
+# maxAngularVelocity
+Position: $2nGbbMnq7TCLBb2sHGw8T5:1
++ [Sirenix.OdinInspector.LabelTextAttribute]
+	Text = "Max"
+
+# minAngularVelocity
+Position: $2nGbbMnq7TCLBb2sHGw8T5:0
++ [Sirenix.OdinInspector.LabelTextAttribute]
+	Text = "Min"

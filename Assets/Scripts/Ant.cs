@@ -9,11 +9,13 @@ public class Ant : MonoBehaviour
     [SerializeField]
     private AntBehaviour behaviour;
     [SerializeField]
-    private float maxSpeed;
+    private float speed;
     [SerializeField]
-    private float minSpeed;
+    private float maxAngularVelocity;
     private object behaviourData;
-    
+
+    public float angularVelocity { get; private set; }
+    private float angle;
     public Vector2 velocity { get; private set; }
     public Vector2 position => (Vector2)transform.position;
     public Vector2 forward => (Vector2)transform.up;
@@ -22,31 +24,30 @@ public class Ant : MonoBehaviour
     private void Start()
     {
         world.RegisterAnt(this);
-        velocity = Random.insideUnitCircle;
+        angle = Random.Range(-180f, 180f);
     }
     
     private void FixedUpdate()
     {
-        velocity += behaviour.GetWeightedSum(this, world);
-        velocity = Vector2.ClampMagnitude(velocity, maxSpeed);
-        if (velocity.magnitude < minSpeed) velocity = velocity.normalized * minSpeed;
+        angularVelocity += behaviour.GetWeightedSum(this, world);
+        angularVelocity = Mathf.Clamp(angularVelocity, -maxAngularVelocity, maxAngularVelocity);
+        angle += angularVelocity * Time.fixedDeltaTime;
     }
 
     private void Update() {
-        UpdatePosition(velocity);
+        float radians = angle * Mathf.Deg2Rad;
+        Vector2 directionVector = new Vector2(Mathf.Cos(radians), Mathf.Sin(radians));
+        velocity = directionVector * speed;
+        
+        transform.up = directionVector;
+        transform.position += (Vector3)velocity * Time.deltaTime;
     }
 
     private void OnDrawGizmos()
     {
-        if (behaviour) behaviour.DrawInstanceGizmos(this, world);
+        // draw velocity
     }
-
-    private void UpdatePosition(Vector2 velocity) {
-        float angle = Vector2.SignedAngle(velocity, Vector2.up);
-        transform.localEulerAngles = new Vector3(0, 0, -angle);
-        transform.position += (Vector3)velocity * Time.deltaTime;
-    }
-
+    
     public void StoreBehaviourData<T>(T data) {
         behaviourData = data;
     }

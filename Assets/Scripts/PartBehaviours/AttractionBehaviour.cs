@@ -7,18 +7,19 @@ public class AttractionBehaviour : PartBehaviour
     [SerializeField, Tooltip("Points in the world that the ant will move toward")]
     private Attractor[] attractors;
     
-    public override Vector2 GetVelocity(Ant ant, World _) {
-        if (attractors.Length == 0) return Vector2.zero;
-        
-        Vector2 sum = Vector2.zero;
+    public override float GetAngularVelocity(Ant ant, World _) {
+        if (attractors.Length == 0) return 0;
+
+        float sum = 0;
         int active = 0;
         foreach (Attractor attractor in attractors) {
             Vector2 diff = attractor.origin - ant.position;
             if (diff.sqrMagnitude < attractor.minDistanceSqr) continue;
-            sum += diff;
+            float angle = Vector2.SignedAngle(ant.forward, diff);
+            sum += angle * diff.magnitude;
             active++;
         }
-        if (active == 0) return Vector2.zero;
+        if (active == 0) return 0;
         return sum / active;
     }
     

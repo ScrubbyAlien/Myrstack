@@ -8,18 +8,6 @@ Position: $root:1
 	HasDefinedExpanded = True
 	GroupName = "$name"
 
-# $USWnAd9YnWFLLhsazmVkhC
-Position: $VAUpYaPkzEEdg1Yp9HBdf3:0
-+ [Sirenix.OdinInspector.ColumnGroupAttribute]
-
-# $QbcqQbTR2EdGx1X3nKsUgB
-Position: $USWnAd9YnWFLLhsazmVkhC:0
-+ [Sirenix.OdinInspector.ColumnGroupAttribute+ColumnSubGroupAttribute]
-
-# $BL4523STYwLfiRqKWa18si
-Position: $USWnAd9YnWFLLhsazmVkhC:1
-+ [Sirenix.OdinInspector.ColumnGroupAttribute+ColumnSubGroupAttribute]
-
 # $HKnEnFk9LgwMRqTcsTf2VP
 Position: $VAUpYaPkzEEdg1Yp9HBdf3:1
 + [Sirenix.OdinInspector.ColumnGroupAttribute]
@@ -32,7 +20,7 @@ Position: $HKnEnFk9LgwMRqTcsTf2VP:0
 # $U1KsCXmczJUWKuEXQXJgHn
 Position: $HKnEnFk9LgwMRqTcsTf2VP:1
 + [Sirenix.OdinInspector.ColumnGroupAttribute+ColumnSubGroupAttribute]
-	Size = 20 px
+	Size = 18 px
 
 # $93Cyad2paNrnqYyWtXjCA4
 Position: $VAUpYaPkzEEdg1Yp9HBdf3:2

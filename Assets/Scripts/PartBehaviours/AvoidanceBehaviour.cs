@@ -5,34 +5,29 @@ public class AvoidanceBehaviour : PartBehaviour
 {
     [SerializeField, Tooltip("Ant will only avoid other ants within radius")]
     private float avoidanceRadius;
-    [SerializeField, Tooltip("The radius below which distances will be treated as if they were at minimum this radius")]
-    private float minRadius;
     [SerializeField, Range(0f, 360f), Tooltip("The width of the field of view of the ant, 360 means all the way around")]
     private float fieldOfView;
     private float halfFov => fieldOfView / 2f;
 
-    public override Vector2 GetVelocity(Ant ant, World world) {
-        Vector2 sum = Vector2.zero;
+    public override float GetAngularVelocity(Ant ant, World world) {
+        float sum = 0;
         foreach (Ant otherAnt in world.allAnts) {
             if (ant == otherAnt) continue;
             
             Vector2 diff = otherAnt.position - ant.position;
             if (diff.sqrMagnitude > avoidanceRadius * avoidanceRadius) continue; // too far away
-            float angle = Vector2.SignedAngle(ant.forward, diff);
+            Vector2 toOther = diff.normalized;
+            
+            // positive angle is counter clockwise
+            float angle = Vector2.SignedAngle(ant.forward, toOther);
             if (angle < -halfFov || angle > halfFov) continue; // outside fov
+
+            // scale by distance and how directly ant is pointing to other
+            float imminence = Mathf.Clamp(Vector2.Dot(ant.forward, toOther), 0f, 1f) / diff.magnitude;
             
-            // make sure the distance is no less than minRadius;
-            float magniutde = Mathf.Max(diff.magnitude, minRadius);
-            // positive if to the left, negative if to the right 
-            float avoidanceDirection = -Mathf.Sign(Vector2.Dot(ant.right, diff));
-            
-            sum += ant.right * avoidanceDirection / magniutde;
+            // negate angle to turn away
+            sum += -angle * imminence;
         }
         return sum;
-    }
-
-    public override void DrawInstanceGizmos(Ant ant, World _) {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(ant.position, avoidanceRadius);
     }
 }

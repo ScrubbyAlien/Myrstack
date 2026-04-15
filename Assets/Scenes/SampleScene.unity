@@ -353,6 +353,18 @@ PrefabInstance:
       value: Hill
       objectReference: {fileID: 0}
     - target: {fileID: 6508848090991326730, guid: d35161d1d983b994db3a85365a0bea78, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.1283792
+      objectReference: {fileID: 0}
+    - target: {fileID: 6508848090991326730, guid: d35161d1d983b994db3a85365a0bea78, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.1283792
+      objectReference: {fileID: 0}
+    - target: {fileID: 6508848090991326730, guid: d35161d1d983b994db3a85365a0bea78, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.1283792
+      objectReference: {fileID: 0}
+    - target: {fileID: 6508848090991326730, guid: d35161d1d983b994db3a85365a0bea78, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
