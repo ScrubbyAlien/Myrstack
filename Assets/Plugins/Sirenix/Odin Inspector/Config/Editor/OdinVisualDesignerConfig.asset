@@ -18,4 +18,5 @@ MonoBehaviour:
   - TypeBinding: Sirenix.OdinInspector.ToggleLeftAttribute, Sirenix.OdinInspector.Attributes
   - TypeBinding: Sirenix.OdinInspector.DisableIfAttribute, Sirenix.OdinInspector.Attributes
   - TypeBinding: Sirenix.OdinInspector.HideLabelAttribute, Sirenix.OdinInspector.Attributes
+  - TypeBinding: Sirenix.OdinInspector.InlineEditorAttribute, Sirenix.OdinInspector.Attributes
   savePath: Assets/Plugins/Sirenix/Odin Inspector/Visual Designer/Saved

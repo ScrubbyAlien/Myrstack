@@ -7,6 +7,10 @@ using UnityEngine;
 public class AntBehaviour : ScriptableObject
 {
     [SerializeField]
+    private Pheromone excretingPheromone;
+    public Pheromone pheromone => excretingPheromone;
+    
+    [SerializeField]
     protected WeightedPart[] parts;
     
     public Vector2 GetWeightedSum(Ant ant, World world) {
@@ -14,11 +18,11 @@ public class AntBehaviour : ScriptableObject
     }
 
     protected Vector2 GetWeightedSum(Ant ant, World world, params WeightedPart[] weightedParts) {
-        IEnumerable<WeightedPart> enabled = weightedParts.Where(v => v.enabled);
-        float totalWeight = enabled.Select(v => v.weight).Sum();
+        IEnumerable<WeightedPart> enabledAndIncluded = weightedParts.Where(v => v.enabled && v.part.Include(ant, world));
+        float totalWeight = enabledAndIncluded.Select(v => v.weight).Sum();
         
         Vector2 sum = Vector2.zero;
-        foreach (WeightedPart weightedPart in enabled) {
+        foreach (WeightedPart weightedPart in enabledAndIncluded) {
             sum += weightedPart.part.GetVelocity(ant, world) * (weightedPart.weight / totalWeight);
         }
 

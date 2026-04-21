@@ -9,9 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e23f60c58f74ed42a7272bd35f7e761, type: 3}
-  m_Name: Attraction
+  m_Script: {fileID: 1726182683, guid: a4865f1ab4504ed8a368670db22f409c, type: 3}
+  m_Name: AOTGenerationConfig
   m_EditorClassIdentifier: 
-  attractors:
-  - origin: {x: 0, y: 0}
-    minDistance: 2.1
+  automateBeforeBuilds: 0
+  deleteDllAfterBuilds: 1
+  AutomateForAllAOTPlatforms: 1
+  automateForPlatforms: 0900000014000000
+  supportSerializedTypes: []

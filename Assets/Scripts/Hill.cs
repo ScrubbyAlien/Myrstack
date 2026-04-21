@@ -1,4 +1,5 @@
 using System;
+using Sirenix.Utilities;
 using UnityEngine;
 
 public class Hill : MonoBehaviour
@@ -14,17 +15,24 @@ public class Hill : MonoBehaviour
     private float secondsPerAnt => 1 / rate;
     private float nextSpawnTime;
 
+    private float collectedFood;
+    private GameObject antsParent;
+
     [SerializeField]
     private float areaPerCapacity;
-    private const float oneOverSqrtPI = 0.564189584f;
-    private float targetRadius => Mathf.Sqrt(capacity * areaPerCapacity) * oneOverSqrtPI;
+    public float radius => Mathf.Sqrt(capacity * areaPerCapacity / Mathf.PI);
     
     private void UpdateScale() {
-        transform.localScale = Vector3.one * targetRadius * 2;
+        transform.localScale = Vector3.one * radius * 2;
     }
     
     private void OnValidate() {
         UpdateScale();
+    }
+
+    private void Start() {
+        world.RegisterHill(this);
+        antsParent = new GameObject("AntsParent");
     }
 
     private void Update() {
@@ -38,13 +46,27 @@ public class Hill : MonoBehaviour
     }
 
     private void Spawn() {
-        Instantiate(antPrefab, transform.position, Quaternion.identity);
+        Ant ant = Instantiate(antPrefab, transform.position, Quaternion.identity);
+        ant.transform.parent = antsParent.transform;
     }
-    
-    
 
     public void AddCapacity(float additional) {
         capacity += additional;
         UpdateScale();
     }
+
+    public void SetAllAntBehaviours(string mode) {
+        if (Enum.TryParse<BehaviourMode>(mode, out BehaviourMode parsed)) {
+            foreach (Ant ant in world.allAnts) ant.SetBehaviour(parsed);
+        }
+        else {
+            Debug.LogError($"Behaviour mode {mode} is not a valid enumeration of BehaviourMode", this);
+        }
+    }
+
+    public void CollectFood(float amount) {
+        collectedFood += amount;
+        Debug.Log(collectedFood);
+    }
+    
 }

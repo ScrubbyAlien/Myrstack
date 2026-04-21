@@ -7,20 +7,17 @@ public class World : ScriptableObject
 {
     private List<Ant> ants;
     public Ant[] allAnts { get; private set; }
-
-    private Dictionary<Pheromone, float[,]> pheromoneGrids;
-    [SerializeField]
-    private int cellSize, gridSize;
+    public PheromoneManager pheromoneManager { get; private set; }
+    public ResourceManager resourceManager { get; private set; }
+    public Hill hill { get; private set; }
     
     private void OnEnable()
     {
         ants = new();
+        hill = null;
+        pheromoneManager = null;
+        resourceManager = null;
         allAnts = Array.Empty<Ant>();
-        pheromoneGrids = new();
-
-        foreach (Pheromone pheromone in Enum.GetValues(typeof(Pheromone))) {
-            pheromoneGrids.Add(pheromone, new float[gridSize,gridSize]);
-        }
     }
 
     public void RegisterAnt(Ant ant)
@@ -28,10 +25,9 @@ public class World : ScriptableObject
         ants.Add(ant);
         allAnts = ants.ToArray();
     }
+    public void RegisterHill(Hill hill) => this.hill = hill;
+    public void RegisterPheromoneManager(PheromoneManager manager) => pheromoneManager = manager;
+    public void RegisterResourceManager(ResourceManager manager) => resourceManager = manager;
 
 }
 
-public enum Pheromone
-{
-    Leaving, Returning
-}

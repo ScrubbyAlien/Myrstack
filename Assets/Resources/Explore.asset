@@ -10,19 +10,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9adcff9ef8166d64eb0c280dae71ac52, type: 3}
-  m_Name: WanderAroundHill
+  m_Name: Explore
   m_EditorClassIdentifier: 
-  excretingPheromone: 0
+  excretingPheromone: 1
   parts:
-  - weight: 2
+  - weight: 5.94
     part: {fileID: 11400000, guid: 8b4ad8331f27b034186527d6372cd7c3, type: 2}
-    hideGizmos: 0
-    enabled: 1
-  - weight: 0.2
-    part: {fileID: 11400000, guid: 55bb3757ae00f084b9f8b0cbd9868bd3, type: 2}
     hideGizmos: 0
     enabled: 1
   - weight: 0.25
     part: {fileID: 11400000, guid: a2b5ab0a9125ed24a95a4c668148ab69, type: 2}
+    hideGizmos: 0
+    enabled: 1
+  - weight: 1
+    part: {fileID: 11400000, guid: 43842e71ca3b5e041bb92df3354b45a9, type: 2}
+    hideGizmos: 0
+    enabled: 1
+  - weight: 10
+    part: {fileID: 11400000, guid: 35d4cf6ff811e644fbfeac74369b46bf, type: 2}
+    hideGizmos: 0
+    enabled: 1
+  - weight: 0.1
+    part: {fileID: 11400000, guid: 791ecfe1d061ca44c9054c8ee9bd69fa, type: 2}
     hideGizmos: 0
     enabled: 1

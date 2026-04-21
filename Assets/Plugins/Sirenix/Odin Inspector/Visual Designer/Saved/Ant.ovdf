@@ -3,9 +3,35 @@ Ant, Assembly-CSharp
 MetaGuid:77a0f5ecda11f3a4eb768b9fae520184
 
 # $13tzUEN8QGYe7KYRLTYotv
-Position: $root:2
+Position: $root:3
 + [Sirenix.OdinInspector.HorizontalGroupAttribute]
+	GroupName = "Speed"
 	Title = "Speed"
+
+# $Q3GuxEMKVxwURQnTeepfFb
+Position: $root:1
++ [Sirenix.OdinInspector.FoldoutGroupAttribute]
+	GroupName = "Behaviours"
+	expanded = True
+	HasDefinedExpanded = True
+
+# $5Pdc7U5JHwUf44uxvHBwXK
+Position: $root:5
++ [Sirenix.OdinInspector.TitleGroupAttribute]
+	HorizontalLine = False
+	GroupName = "Pheromone Excretion"
+
+# $TLhLkxkWdoVMAYAAgTcmVb
+Position: $root:4
++ [Sirenix.OdinInspector.TitleGroupAttribute]
+	GroupName = "Pheromone Sensing"
+	HorizontalLine = False
+
+# $5rKCkn7FvAvKXcvg7DNEwK
+Position: $root:32
++ [Sirenix.OdinInspector.TitleGroupAttribute]
+	GroupName = "Holding"
+	HorizontalLine = False
 
 # maxSpeed
 Position: $13tzUEN8QGYe7KYRLTYotv:1
@@ -20,3 +46,49 @@ Position: $13tzUEN8QGYe7KYRLTYotv:0
 	Text = "Min"
 + [Sirenix.OdinInspector.LabelWidthAttribute]
 	Width = -35.9
+
+# exploringBehaviour
+Position: $Q3GuxEMKVxwURQnTeepfFb:1
++ [Sirenix.OdinInspector.LabelTextAttribute]
+	Text = "Exploring"
++ [Sirenix.OdinInspector.InlineEditorAttribute]
+	ObjectFieldMode = Foldout
+	IncrementInlineEditorDrawerDepth = False
+
+# noneBehaviour
+Position: $Q3GuxEMKVxwURQnTeepfFb:0
++ [Sirenix.OdinInspector.LabelTextAttribute]
+	Text = "None"
++ [Sirenix.OdinInspector.InlineEditorAttribute]
+	ObjectFieldMode = Foldout
+	IncrementInlineEditorDrawerDepth = False
+
+# defendingBehaviour
+Position: $Q3GuxEMKVxwURQnTeepfFb:3
++ [Sirenix.OdinInspector.LabelTextAttribute]
+	Text = "Defending"
++ [Sirenix.OdinInspector.InlineEditorAttribute]
+	ObjectFieldMode = Foldout
+	IncrementInlineEditorDrawerDepth = False
+
+# amount
+Position: $5Pdc7U5JHwUf44uxvHBwXK:0
+
+# rate
+Position: $5Pdc7U5JHwUf44uxvHBwXK:1
+
+# sampleSize
+Position: $TLhLkxkWdoVMAYAAgTcmVb:0
+
+# samplePoints
+Position: $TLhLkxkWdoVMAYAAgTcmVb:1
+
+# holdPosition
+Position: $5rKCkn7FvAvKXcvg7DNEwK:0
+
+# returningBehaviour
+Position: $Q3GuxEMKVxwURQnTeepfFb:2
+
+# currentBehaviour
+Visibility: Shown
++ [Sirenix.OdinInspector.ReadOnlyAttribute]

@@ -1,0 +1,19 @@
+OVDF v1.1
+Hill, Assembly-CSharp
+MetaGuid:cb2e7a5bd038c3b489afed882266e5de
+
+# $XP2Jmj941v7WUPntaXitMa
+Position: $root:1
++ [Sirenix.OdinInspector.BoxGroupAttribute]
+
+# antPrefab
+Position: $XP2Jmj941v7WUPntaXitMa:0
++ [Sirenix.OdinInspector.InlineEditorAttribute]
+	DrawHeader = False
+	DrawPreview = True
+	expanded = True
+	ExpandedHasValue = True
+	IncrementInlineEditorDrawerDepth = True
+	ObjectFieldMode = Foldout
+	PreviewAlignment = Left
++ [Sirenix.OdinInspector.AssetsOnlyAttribute]
