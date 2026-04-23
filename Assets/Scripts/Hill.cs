@@ -1,10 +1,14 @@
 using System;
 using System.Collections.Generic;
-using Sirenix.Utilities;
+using System.Linq;
 using UnityEngine;
 
 public class Hill : MonoBehaviour
 {
+    public event Action<float> FoodCollected;
+
+    [SerializeField]
+    private ResourceManager resourceManager;
     [SerializeField]
     private World world;
     [SerializeField]
@@ -67,20 +71,35 @@ public class Hill : MonoBehaviour
     
     public void SetNoneAntBehaviours(string mode, int number) {
         if (Enum.TryParse<BehaviourMode>(mode, out BehaviourMode parsed)) {
-            // IEnumerable<Ant> uninitialisedAnts
-            
-            
-            
-            
+            Ant[] uninitialisedAnts = world.allAnts.Where(a => !a.initialised).ToArray();
+            number = Mathf.Min(uninitialisedAnts.Length, number);
+            for (int i = 0; i < number; i++) {
+                uninitialisedAnts[i].SetBehaviour(parsed);
+            }
         }
         else {
             Debug.LogError($"Behaviour mode {mode} is not a valid enumeration of BehaviourMode", this);
         }
     }
 
+    public void SetOneNoneAntBehaviour(string mode) {
+        SetNoneAntBehaviours(mode, 1);
+    }
+
     public void CollectFood(float amount) {
         collectedFood += amount;
-        Debug.Log(collectedFood);
+        FoodCollected?.Invoke(collectedFood);
+    }
+
+    public bool LoseFood(out Food food) {
+        if (collectedFood >= 1f) {
+            food = resourceManager.InstantiateFood(transform.position);
+            collectedFood -= 1;
+            FoodCollected?.Invoke(collectedFood);
+            return true;
+        }
+        food = null;
+        return false;
     }
     
 }

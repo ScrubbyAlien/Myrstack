@@ -96,6 +96,10 @@ public class ResourceManager : MonoBehaviour
         return null;
     }
 
+    public Food InstantiateFood(Vector2 position) {
+        return Instantiate(foodPrefab, position, Quaternion.identity);
+    }
+    
     private class FoodCluster
     {
         private Stack<Food> foodStack;

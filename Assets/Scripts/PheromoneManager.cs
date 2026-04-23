@@ -59,7 +59,7 @@ public class PheromoneManager : MonoBehaviour
 
 public enum Pheromone
 {
-    None, Leaving, Returning
+    None, Leaving, Returning, Attacking
 }
 
 public class PheromoneGrid

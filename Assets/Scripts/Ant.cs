@@ -12,8 +12,11 @@ public class Ant : MonoBehaviour
     private float lifeTime;
     private float timer;
     [SerializeField]
-    private AntBehaviour noneBehaviour, exploringBehaviour, returningBehaviour, defendingBehaviour;
-    private AntBehaviour currentBehaviour;
+    private AntBehaviour noneBehaviour, exploringBehaviour, returningBehaviour, defendingBehaviour, attackingBehaviour;
+    public AntBehaviour currentBehaviour { get; private set; }
+    public BehaviourMode currentMode { get; private set; }
+    public bool initialised;
+    
     [SerializeField]
     private float maxSpeed;
     [SerializeField]
@@ -32,8 +35,9 @@ public class Ant : MonoBehaviour
     [SerializeField]
     private Vector2 holdPosition;
     private Food heldFood;
+    public bool holdingFood => heldFood;
     
-    
+    public Vector2 spawnPosition { get; private set; }
     public Vector2 velocity { get; private set; }
     public Vector2 position => (Vector2)transform.position;
     public Vector2 forward => (Vector2)transform.up;
@@ -41,6 +45,8 @@ public class Ant : MonoBehaviour
     public float angle => Vector2.SignedAngle(velocity, Vector2.up);
 
     private bool turnAround;
+
+    private float hitPoints = 1f;
     
     
     public (Vector2, int)[] sensors {
@@ -52,11 +58,11 @@ public class Ant : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
+    private void Start() {
+        spawnPosition = transform.position;
         world.RegisterAnt(this);
         velocity = Random.insideUnitCircle;
-        SetBehaviour(BehaviourMode.None);
+        if (currentMode == BehaviourMode.None) SetBehaviour(BehaviourMode.None);
     }
     
     private void FixedUpdate()
@@ -69,7 +75,7 @@ public class Ant : MonoBehaviour
         }
         if (velocity.magnitude < minSpeed) velocity = velocity.normalized * minSpeed;
 
-        if (heldFood) {
+        if (heldFood && currentMode != BehaviourMode.Attacking) {
             float sqrDistanceToHill = Vector3.SqrMagnitude(world.hill.transform.position - transform.position);
             if (sqrDistanceToHill < world.hill.radius * world.hill.radius) {
                 DepositFood();
@@ -79,22 +85,51 @@ public class Ant : MonoBehaviour
 
     private void Update() {
         UpdatePosition(velocity);
-
-        if (currentBehaviour.pheromone == Pheromone.None) return;
-        if (Time.time >= nextExcretionTime) {
-            nextExcretionTime = Time.time + secondsBetweenExcretion;
-            world.pheromoneManager.Excrete(currentBehaviour.pheromone, position, amount);
-        }
         
-        if (Vector3.SqrMagnitude(world.hill.transform.position - transform.position) < world.hill.radius * world.hill.radius) {
+        if (Vector3.SqrMagnitude((Vector2)world.hill.transform.position - position) < world.hill.radius * world.hill.radius) {
             timer = 0;
+            
+            if (currentMode == BehaviourMode.Attacking && !holdingFood) {
+                StealFood();
+                if (holdingFood) TurnAround();
+            }  
         }
-        else {
+        else if (currentMode != BehaviourMode.Attacking) {
             timer += Time.deltaTime;
             if (timer > lifeTime) {
                 world.DeregisterAnt(this);
                 Destroy(gameObject);
             }
+        }
+
+        if (currentMode == BehaviourMode.Attacking && !holdingFood) {
+            if (WithinGridDistanceOfOtherAnt(1, out Ant ant, BehaviourMode.Exploring, BehaviourMode.Returning, BehaviourMode.Defending)) {
+                if (ant.Kill(out Food food)) {
+                    PickUpFood(food);
+                    turnAround = false; // undo TurnAround() call in PickUpFood()
+                }
+            }
+        }
+
+        if (currentMode == BehaviourMode.Attacking && holdingFood
+            && Vector3.SqrMagnitude(spawnPosition - position) < 4f) 
+        {
+            world.DeregisterAnt(this);
+            Destroy(gameObject);
+        }
+
+        if (currentMode == BehaviourMode.Defending) {
+            if (WithinGridDistanceOfOtherAnt(1, out Ant ant, BehaviourMode.Attacking)) {
+                if (ant.Kill(out Food food)) {
+                    food.Annihilate();
+                }
+            }
+        }
+        
+        if (currentBehaviour.pheromone == Pheromone.None) return;
+        if (Time.time >= nextExcretionTime) {
+            nextExcretionTime = Time.time + secondsBetweenExcretion;
+            world.pheromoneManager.Excrete(currentBehaviour.pheromone, position, amount);
         }
     }
 
@@ -118,14 +153,21 @@ public class Ant : MonoBehaviour
     }
 
     public void SetBehaviour(BehaviourMode mode) {
+        if (mode == BehaviourMode.None) initialised = false;
+        else initialised = true;
+
+        currentMode = mode;
         
         currentBehaviour = mode switch {
             BehaviourMode.None => noneBehaviour,
             BehaviourMode.Exploring => exploringBehaviour ?? noneBehaviour,
             BehaviourMode.Returning => returningBehaviour ?? noneBehaviour,
             BehaviourMode.Defending => defendingBehaviour ?? noneBehaviour,
+            BehaviourMode.Attacking => attackingBehaviour ?? noneBehaviour,
             _ => noneBehaviour,
         };
+
+        if (mode == BehaviourMode.Defending) hitPoints = 3f;
 
         GetComponent<SpriteRenderer>().color = currentBehaviour.antColor;
     }
@@ -134,7 +176,7 @@ public class Ant : MonoBehaviour
         food.transform.parent = transform;
         food.transform.localPosition = holdPosition;
         heldFood = food;
-        if (currentBehaviour == exploringBehaviour) currentBehaviour = returningBehaviour;
+        if (currentMode == BehaviourMode.Exploring) SetBehaviour(BehaviourMode.Returning);
         TurnAround();
     }
 
@@ -142,16 +184,63 @@ public class Ant : MonoBehaviour
         if (heldFood) Destroy(heldFood.gameObject);
         heldFood = null;
         world.hill.CollectFood(1f);
-        if (currentBehaviour == returningBehaviour) currentBehaviour = exploringBehaviour;
+        if (currentMode == BehaviourMode.Returning) SetBehaviour(BehaviourMode.Exploring);
         TurnAround();
+    }
+
+    private void StealFood() {
+        if (world.hill.LoseFood(out Food food)) {
+            PickUpFood(food);
+        }
+    }
+
+    private bool Kill(out Food food) {
+        hitPoints -= 1f;
+        if (hitPoints <= 0) {
+            bool wasHoldingFood = false;
+            food = null;
+            if (heldFood) {
+                heldFood.transform.parent = null;
+                food = heldFood;
+                heldFood = null;
+                wasHoldingFood = true;
+            }
+            world.DeregisterAnt(this);
+            Destroy(gameObject);
+            return wasHoldingFood;
+        }
+        else {
+            food = null;
+            return false;
+        }
     }
 
     private void TurnAround() {
         turnAround = true;
     }
+
+    private bool WithinGridDistanceOfOtherAnt(int distance, out Ant ant, params BehaviourMode[] filter) {
+        Vector2Int thisAntCoord = GridConfiguration.ToGridPosition(position);
+        foreach ((Ant candidateAnt, Vector2Int coord) in world.allAntGridCoords) {
+            if (candidateAnt == this) continue;
+            if (!filter.Contains(candidateAnt.currentMode)) continue;
+            if (GridConfiguration.Distance(thisAntCoord, coord) <= distance) {
+                ant = candidateAnt;
+                return true;
+            }
+        }
+        ant = null;
+        return false;
+    }
 }
 
+[System.Flags]
 public enum BehaviourMode
 {
-    None, Exploring, Returning, Defending
+    None = 0,
+    Exploring = 1 << 1, 
+    Returning = 1 << 2, 
+    Defending = 1 << 3, 
+    Attacking = 1 << 4,
+    All = Exploring | Returning | Defending | Attacking
 }

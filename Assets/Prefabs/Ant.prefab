@@ -125,11 +125,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   world: {fileID: 11400000, guid: fb848b147a7ae7d44b4a6c5988191cd9, type: 2}
-  lifeTime: 2000
+  lifeTime: 100
   noneBehaviour: {fileID: 11400000, guid: 7030bf117e0ced5478e407836b4945d5, type: 2}
   exploringBehaviour: {fileID: 11400000, guid: 3d344ac7b70577648a65f248616591d1, type: 2}
   returningBehaviour: {fileID: 11400000, guid: 7e5c0e250bf56ed4cb08a189347ef837, type: 2}
-  defendingBehaviour: {fileID: 0}
+  defendingBehaviour: {fileID: 11400000, guid: 38dfcdce44e37e24b91645851f7714e5, type: 2}
+  attackingBehaviour: {fileID: 11400000, guid: 3085d0043cc942b438dbe95d040089c5, type: 2}
+  initialised: 0
   maxSpeed: 2
   minSpeed: 1
   sampleSize: 0

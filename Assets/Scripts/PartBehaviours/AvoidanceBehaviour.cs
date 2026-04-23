@@ -11,10 +11,15 @@ public class AvoidanceBehaviour : PartBehaviour
     private float fieldOfView;
     private float halfFov => fieldOfView / 2f;
 
+    [SerializeField]
+    private BehaviourMode mask;
+
     public override Vector2 GetVelocity(Ant ant, World world) {
+        
         Vector2 sum = Vector2.zero;
         foreach (Ant otherAnt in world.allAnts) {
             if (ant == otherAnt) continue;
+            if ((mask | otherAnt.currentMode) != mask) continue;
             
             Vector2 diff = otherAnt.position - ant.position;
             if (diff.sqrMagnitude > avoidanceRadius * avoidanceRadius) continue; // too far away

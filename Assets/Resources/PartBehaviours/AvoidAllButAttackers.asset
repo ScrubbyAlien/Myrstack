@@ -9,7 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f13c187d6ecd5b944a96aa83c163cb5e, type: 3}
-  m_Name: FindFood
+  m_Script: {fileID: 11500000, guid: f879e0e5faace7d4691a902099975e23, type: 3}
+  m_Name: AvoidAllButAttackers
   m_EditorClassIdentifier: 
-  searchSize: 5
+  avoidanceRadius: 1.01
+  minRadius: 0
+  fieldOfView: 200
+  mask: 14

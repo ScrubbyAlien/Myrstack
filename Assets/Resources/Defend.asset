@@ -10,28 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9adcff9ef8166d64eb0c280dae71ac52, type: 3}
-  m_Name: Return
+  m_Name: Defend
   m_EditorClassIdentifier: 
-  excretingPheromone: 2
-  color: {r: 0.10142644, g: 0.15471691, b: 0.09896044, a: 1}
+  excretingPheromone: 0
+  color: {r: 0.09594757, g: 0.02825915, b: 0.23773581, a: 1}
   parts:
   - weight: 5
     part: {fileID: 11400000, guid: 8b4ad8331f27b034186527d6372cd7c3, type: 2}
     hideGizmos: 0
     enabled: 1
-  - weight: 1
-    part: {fileID: 11400000, guid: a2b5ab0a9125ed24a95a4c668148ab69, type: 2}
-    hideGizmos: 0
-    enabled: 1
-  - weight: 10
-    part: {fileID: 11400000, guid: fddaa55ee46e1f8428b16ca311086841, type: 2}
-    hideGizmos: 0
-    enabled: 1
-  - weight: 10
-    part: {fileID: 11400000, guid: a6b18a8193033d144a09469a185d8c03, type: 2}
-    hideGizmos: 0
-    enabled: 1
-  - weight: 2
+  - weight: 0.2
     part: {fileID: 11400000, guid: 791ecfe1d061ca44c9054c8ee9bd69fa, type: 2}
+    hideGizmos: 0
+    enabled: 1
+  - weight: 3
+    part: {fileID: 11400000, guid: 45ea29242b794d04ba30ef1db5d38867, type: 2}
+    hideGizmos: 0
+    enabled: 1
+  - weight: -1
+    part: {fileID: 11400000, guid: f8b2bbd7179df994bb1af61a3f9742df, type: 2}
+    hideGizmos: 0
+    enabled: 1
+  - weight: 10
+    part: {fileID: 11400000, guid: 40c7082c16a0a9547ae4246ebe09910f, type: 2}
     hideGizmos: 0
     enabled: 1

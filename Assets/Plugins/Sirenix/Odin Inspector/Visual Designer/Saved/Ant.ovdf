@@ -45,7 +45,7 @@ Position: $SgfWrbrNajHZXZzm9utWRz:0
 	GroupName = "Sensing"
 
 # $VZ7LVcYqzoaKHDyucu6yuk
-Position: $root:34
+Position: $root:33
 + [Sirenix.OdinInspector.FoldoutGroupAttribute]
 	GroupName = "Food"
 
@@ -117,3 +117,14 @@ Visibility: Shown
 
 # lifeTime
 Position: $root:1
+
+# attackingBehaviour
+Position: $Q3GuxEMKVxwURQnTeepfFb:4
++ [Sirenix.OdinInspector.LabelTextAttribute]
+	Text = "Attacking"
++ [Sirenix.OdinInspector.InlineEditorAttribute]
+	ObjectFieldMode = Foldout
+	IncrementInlineEditorDrawerDepth = False
+
+# initialised
+Visibility: Hidden
