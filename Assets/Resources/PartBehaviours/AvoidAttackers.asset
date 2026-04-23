@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: AvoidAttackers
   m_EditorClassIdentifier: 
   avoidanceRadius: 3
-  minRadius: 0
+  minRadius: 0.5
   fieldOfView: 200
   mask: 16

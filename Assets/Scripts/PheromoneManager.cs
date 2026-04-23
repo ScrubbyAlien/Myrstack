@@ -37,6 +37,7 @@ public class PheromoneManager : MonoBehaviour
 
     private void OnDrawGizmos() {
         if (pheromoneGrids == null) return;
+        Gizmos.color = Color.Lerp(Color.red, Color.yellow, 0.5f);
         foreach ((Vector2 location, float concentration) in pheromoneGrids[drawGizmosForPheromone].worldConcentrations) {
             Gizmos.DrawWireSphere((Vector3)location, concentration * 0.1f);
         }

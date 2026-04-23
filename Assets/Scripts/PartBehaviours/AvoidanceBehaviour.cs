@@ -36,6 +36,16 @@ public class AvoidanceBehaviour : PartBehaviour
         return sum;
     }
 
+    public override bool Include(Ant ant, World world) {
+        if (ant.currentMode != BehaviourMode.Attacking) return true;
+        else {
+            // special case to stop attackers chasing foragers when food has been stolen 
+            // this is where context maps could be useful, but too complicated to implement now
+            if ((mask | BehaviourMode.Exploring) == mask && ant.holdingFood) return false;
+            return true;
+        }
+    }
+
     public override void DrawInstanceGizmos(Ant ant, World _) {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(ant.position, avoidanceRadius);

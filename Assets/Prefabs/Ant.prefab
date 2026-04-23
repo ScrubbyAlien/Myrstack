@@ -139,7 +139,7 @@ MonoBehaviour:
   - {x: 0, y: 0.3}
   - {x: -0.23, y: 0.2}
   - {x: 0.23, y: 0.2}
-  amount: 2
+  amount: 1.5
   rate: 5
   holdPosition: {x: 0, y: 0.14}
 --- !u!61 &7789010466975875512

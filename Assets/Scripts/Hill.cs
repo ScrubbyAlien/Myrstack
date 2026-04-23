@@ -42,7 +42,7 @@ public class Hill : MonoBehaviour
 
     private void Update() {
         // if the hill is at capacity then don't spawn any more
-        if (world.allAnts.Length + 1 > capacity) return;    
+        if (world.allNonEnemyAnts.Length + 1 > capacity) return;    
         
         if (Time.time >= nextSpawnTime) {
             Spawn();

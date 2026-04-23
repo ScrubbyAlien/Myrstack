@@ -35,6 +35,7 @@ public class EnemyHill : MonoBehaviour
     private void OnDrawGizmos() {
         if (spawnPoints == null) return;
 
+        Gizmos.color = Color.red;
         foreach (Vector2 spawnPoint in spawnPoints) {
             Gizmos.DrawWireSphere(spawnPoint, 0.5f);
         }
