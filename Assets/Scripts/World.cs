@@ -25,6 +25,10 @@ public class World : ScriptableObject
         ants.Add(ant);
         allAnts = ants.ToArray();
     }
+    public void DeregisterAnt(Ant ant) {
+        ants.Remove(ant);
+        allAnts = ants.ToArray();
+    }
     public void RegisterHill(Hill hill) => this.hill = hill;
     public void RegisterPheromoneManager(PheromoneManager manager) => pheromoneManager = manager;
     public void RegisterResourceManager(ResourceManager manager) => resourceManager = manager;

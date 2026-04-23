@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Sirenix.Utilities;
 using UnityEngine;
 
@@ -58,6 +59,19 @@ public class Hill : MonoBehaviour
     public void SetAllAntBehaviours(string mode) {
         if (Enum.TryParse<BehaviourMode>(mode, out BehaviourMode parsed)) {
             foreach (Ant ant in world.allAnts) ant.SetBehaviour(parsed);
+        }
+        else {
+            Debug.LogError($"Behaviour mode {mode} is not a valid enumeration of BehaviourMode", this);
+        }
+    }
+    
+    public void SetNoneAntBehaviours(string mode, int number) {
+        if (Enum.TryParse<BehaviourMode>(mode, out BehaviourMode parsed)) {
+            // IEnumerable<Ant> uninitialisedAnts
+            
+            
+            
+            
         }
         else {
             Debug.LogError($"Behaviour mode {mode} is not a valid enumeration of BehaviourMode", this);

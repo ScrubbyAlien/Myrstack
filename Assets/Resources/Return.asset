@@ -13,20 +13,25 @@ MonoBehaviour:
   m_Name: Return
   m_EditorClassIdentifier: 
   excretingPheromone: 2
+  color: {r: 0.10142644, g: 0.15471691, b: 0.09896044, a: 1}
   parts:
-  - weight: 2
+  - weight: 5
     part: {fileID: 11400000, guid: 8b4ad8331f27b034186527d6372cd7c3, type: 2}
     hideGizmos: 0
     enabled: 1
-  - weight: 0.25
+  - weight: 1
     part: {fileID: 11400000, guid: a2b5ab0a9125ed24a95a4c668148ab69, type: 2}
     hideGizmos: 0
     enabled: 1
-  - weight: 4
+  - weight: 10
     part: {fileID: 11400000, guid: fddaa55ee46e1f8428b16ca311086841, type: 2}
     hideGizmos: 0
     enabled: 1
-  - weight: 0
-    part: {fileID: 11400000, guid: 7cd134deedefec8438b9769548f947db, type: 2}
+  - weight: 10
+    part: {fileID: 11400000, guid: a6b18a8193033d144a09469a185d8c03, type: 2}
+    hideGizmos: 0
+    enabled: 1
+  - weight: 0.1
+    part: {fileID: 11400000, guid: 791ecfe1d061ca44c9054c8ee9bd69fa, type: 2}
     hideGizmos: 0
     enabled: 1

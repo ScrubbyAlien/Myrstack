@@ -21,6 +21,6 @@ public class FollowPheromoneBehaviour : PartBehaviour
             }
         }
         
-        return highestConcentrationDirection * highestConcentration;
+        return highestConcentrationDirection;
     }
 }

@@ -23,11 +23,14 @@ public static class GridConfiguration
     public static IEnumerable<(Vector2Int, T)> SearchWithCoord<T>(Dictionary<Vector2Int, T> grid, Vector2Int origin, int size) {
         Vector2Int min = origin - new Vector2Int(size, size);
         Vector2Int max = origin + new Vector2Int(size, size);
+
+        T value;
+        if (grid.TryGetValue(origin, out value)) yield return (origin, value);
         
         for (int x = min.x; x < max.x; x++) {
             for (int y = min.y; y < max.y; y++) {
                 Vector2Int coord = new Vector2Int(x, y);
-                if (grid.TryGetValue(coord, out T value)) yield return (coord, value);
+                if (grid.TryGetValue(coord, out value)) yield return (coord, value);
             }
         }
     }

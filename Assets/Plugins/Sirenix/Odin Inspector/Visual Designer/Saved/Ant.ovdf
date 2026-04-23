@@ -2,46 +2,62 @@ OVDF v1.1
 Ant, Assembly-CSharp
 MetaGuid:77a0f5ecda11f3a4eb768b9fae520184
 
-# $13tzUEN8QGYe7KYRLTYotv
-Position: $root:3
-+ [Sirenix.OdinInspector.HorizontalGroupAttribute]
-	GroupName = "Speed"
-	Title = "Speed"
-
 # $Q3GuxEMKVxwURQnTeepfFb
-Position: $root:1
+Position: $root:3
 + [Sirenix.OdinInspector.FoldoutGroupAttribute]
 	GroupName = "Behaviours"
 	expanded = True
 	HasDefinedExpanded = True
 
 # $5Pdc7U5JHwUf44uxvHBwXK
-Position: $root:5
+Position: $SgfWrbrNajHZXZzm9utWRz:1
 + [Sirenix.OdinInspector.TitleGroupAttribute]
 	HorizontalLine = False
-	GroupName = "Pheromone Excretion"
+	GroupName = "Excretion"
 
-# $TLhLkxkWdoVMAYAAgTcmVb
+# $Y4ZEvQTH4VNG6EzJuANJGt
 Position: $root:4
-+ [Sirenix.OdinInspector.TitleGroupAttribute]
-	GroupName = "Pheromone Sensing"
-	HorizontalLine = False
++ [Sirenix.OdinInspector.FoldoutGroupAttribute]
+	GroupName = "Speed"
 
-# $5rKCkn7FvAvKXcvg7DNEwK
-Position: $root:32
+# $6V1bGVge828csSrhAUV68o
+Position: $Y4ZEvQTH4VNG6EzJuANJGt:0
++ [Sirenix.OdinInspector.ColumnGroupAttribute]
+
+# $Ktc8qdXeghZtgRiqWUL6Qi
+Position: $6V1bGVge828csSrhAUV68o:0
++ [Sirenix.OdinInspector.ColumnGroupAttribute+ColumnSubGroupAttribute]
+
+# $3aJgoETZrFz5fydAa4sNfz
+Position: $6V1bGVge828csSrhAUV68o:1
++ [Sirenix.OdinInspector.ColumnGroupAttribute+ColumnSubGroupAttribute]
+
+# $SgfWrbrNajHZXZzm9utWRz
+Position: $root:6
++ [Sirenix.OdinInspector.FoldoutGroupAttribute]
+	GroupName = "Pheromones"
+
+# $FsaNifBhT9pUtEUtKJckt8
+Position: $SgfWrbrNajHZXZzm9utWRz:0
 + [Sirenix.OdinInspector.TitleGroupAttribute]
-	GroupName = "Holding"
+	BoldTitle = True
 	HorizontalLine = False
+	GroupName = "Sensing"
+
+# $VZ7LVcYqzoaKHDyucu6yuk
+Position: $root:34
++ [Sirenix.OdinInspector.FoldoutGroupAttribute]
+	GroupName = "Food"
 
 # maxSpeed
-Position: $13tzUEN8QGYe7KYRLTYotv:1
+Position: $3aJgoETZrFz5fydAa4sNfz:0
 + [Sirenix.OdinInspector.LabelTextAttribute]
 	Text = "Max"
 + [Sirenix.OdinInspector.LabelWidthAttribute]
 	Width = -33.8
 
 # minSpeed
-Position: $13tzUEN8QGYe7KYRLTYotv:0
+Position: $Ktc8qdXeghZtgRiqWUL6Qi:0
 + [Sirenix.OdinInspector.LabelTextAttribute]
 	Text = "Min"
 + [Sirenix.OdinInspector.LabelWidthAttribute]
@@ -78,17 +94,26 @@ Position: $5Pdc7U5JHwUf44uxvHBwXK:0
 Position: $5Pdc7U5JHwUf44uxvHBwXK:1
 
 # sampleSize
-Position: $TLhLkxkWdoVMAYAAgTcmVb:0
+Position: $FsaNifBhT9pUtEUtKJckt8:0
 
 # samplePoints
-Position: $TLhLkxkWdoVMAYAAgTcmVb:1
+Position: $FsaNifBhT9pUtEUtKJckt8:1
 
 # holdPosition
-Position: $5rKCkn7FvAvKXcvg7DNEwK:0
+Position: $VZ7LVcYqzoaKHDyucu6yuk:0
 
 # returningBehaviour
 Position: $Q3GuxEMKVxwURQnTeepfFb:2
++ [Sirenix.OdinInspector.InlineEditorAttribute]
+	ObjectFieldMode = Foldout
+	IncrementInlineEditorDrawerDepth = False
++ [Sirenix.OdinInspector.LabelTextAttribute]
+	Text = "Returning"
 
 # currentBehaviour
+Position: $root:2
 Visibility: Shown
 + [Sirenix.OdinInspector.ReadOnlyAttribute]
+
+# lifeTime
+Position: $root:1

@@ -13,16 +13,17 @@ MonoBehaviour:
   m_Name: Explore
   m_EditorClassIdentifier: 
   excretingPheromone: 1
+  color: {r: 0.10142644, g: 0.15471691, b: 0.09896044, a: 1}
   parts:
-  - weight: 5.94
+  - weight: 10
     part: {fileID: 11400000, guid: 8b4ad8331f27b034186527d6372cd7c3, type: 2}
     hideGizmos: 0
     enabled: 1
-  - weight: 0.25
+  - weight: 1
     part: {fileID: 11400000, guid: a2b5ab0a9125ed24a95a4c668148ab69, type: 2}
     hideGizmos: 0
     enabled: 1
-  - weight: 1
+  - weight: 10
     part: {fileID: 11400000, guid: 43842e71ca3b5e041bb92df3354b45a9, type: 2}
     hideGizmos: 0
     enabled: 1

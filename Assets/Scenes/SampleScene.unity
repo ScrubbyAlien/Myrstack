@@ -1286,8 +1286,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1561105492009668175, guid: 4acac3c88c55c834d82cc51bc49112b5, type: 3}
+      propertyPath: sizeFactor
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1561105492009668175, guid: 4acac3c88c55c834d82cc51bc49112b5, type: 3}
       propertyPath: dissipation
-      value: 0.9
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1561105492009668175, guid: 4acac3c88c55c834d82cc51bc49112b5, type: 3}
+      propertyPath: maxConcentration
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1561105492009668175, guid: 4acac3c88c55c834d82cc51bc49112b5, type: 3}
+      propertyPath: drawGizmosForPheromone
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4349709706723024337, guid: 4acac3c88c55c834d82cc51bc49112b5, type: 3}
       propertyPath: m_LocalPosition.x

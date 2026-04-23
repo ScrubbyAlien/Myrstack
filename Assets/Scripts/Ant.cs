@@ -8,6 +8,9 @@ public class Ant : MonoBehaviour
 {
     [SerializeField]
     private World world;
+    [SerializeField, Tooltip("If the ant spends this much time away from the hill they will perish")]
+    private float lifeTime;
+    private float timer;
     [SerializeField]
     private AntBehaviour noneBehaviour, exploringBehaviour, returningBehaviour, defendingBehaviour;
     private AntBehaviour currentBehaviour;
@@ -35,13 +38,16 @@ public class Ant : MonoBehaviour
     public Vector2 position => (Vector2)transform.position;
     public Vector2 forward => (Vector2)transform.up;
     public Vector2 right => (Vector2)transform.right;
-    public float angle => Vector2.SignedAngle(velocity, Vector2.up); 
+    public float angle => Vector2.SignedAngle(velocity, Vector2.up);
 
+    private bool turnAround;
+    
+    
     public (Vector2, int)[] sensors {
         get {
             return samplePoints.Select(p => {
                 Vector2 rotated = Quaternion.AngleAxis(-angle, Vector3.forward) * p;
-                return (rotated, sampleSize);
+                return ((Vector2)transform.position + rotated, sampleSize);
             }).ToArray();
         }
     }
@@ -57,7 +63,18 @@ public class Ant : MonoBehaviour
     {
         velocity += currentBehaviour.GetWeightedSum(this, world);
         velocity = Vector2.ClampMagnitude(velocity, maxSpeed);
+        if (turnAround) {
+            velocity = -velocity;
+            turnAround = false;
+        }
         if (velocity.magnitude < minSpeed) velocity = velocity.normalized * minSpeed;
+
+        if (heldFood) {
+            float sqrDistanceToHill = Vector3.SqrMagnitude(world.hill.transform.position - transform.position);
+            if (sqrDistanceToHill < world.hill.radius * world.hill.radius) {
+                DepositFood();
+            }    
+        }
     }
 
     private void Update() {
@@ -68,6 +85,17 @@ public class Ant : MonoBehaviour
             nextExcretionTime = Time.time + secondsBetweenExcretion;
             world.pheromoneManager.Excrete(currentBehaviour.pheromone, position, amount);
         }
+        
+        if (Vector3.SqrMagnitude(world.hill.transform.position - transform.position) < world.hill.radius * world.hill.radius) {
+            timer = 0;
+        }
+        else {
+            timer += Time.deltaTime;
+            if (timer > lifeTime) {
+                world.DeregisterAnt(this);
+                Destroy(gameObject);
+            }
+        }
     }
 
     private void OnDrawGizmos()
@@ -75,8 +103,8 @@ public class Ant : MonoBehaviour
         if (currentBehaviour) currentBehaviour.DrawInstanceGizmos(this, world);
         foreach ((Vector2 position, int size) in sensors) {
             Gizmos.DrawWireCube(
-                transform.position + (Vector3)position, 
-                Vector3.one * size * GridConfiguration.cellSize
+                (Vector3)position, 
+                Vector3.one * (size + 1) * GridConfiguration.cellSize
             );
         }
         Gizmos.color = Color.green;
@@ -98,14 +126,16 @@ public class Ant : MonoBehaviour
             BehaviourMode.Defending => defendingBehaviour ?? noneBehaviour,
             _ => noneBehaviour,
         };
+
+        GetComponent<SpriteRenderer>().color = currentBehaviour.antColor;
     }
 
     public void PickUpFood(Food food) { 
-        Debug.Log("pickup");
         food.transform.parent = transform;
         food.transform.localPosition = holdPosition;
         heldFood = food;
         if (currentBehaviour == exploringBehaviour) currentBehaviour = returningBehaviour;
+        TurnAround();
     }
 
     public void DepositFood() {
@@ -113,6 +143,11 @@ public class Ant : MonoBehaviour
         heldFood = null;
         world.hill.CollectFood(1f);
         if (currentBehaviour == returningBehaviour) currentBehaviour = exploringBehaviour;
+        TurnAround();
+    }
+
+    private void TurnAround() {
+        turnAround = true;
     }
 }
 

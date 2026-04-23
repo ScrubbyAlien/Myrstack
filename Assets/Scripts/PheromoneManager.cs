@@ -12,6 +12,13 @@ public class PheromoneManager : MonoBehaviour
     
     [SerializeField]
     private float dissipation;
+    [SerializeField]
+    private float maxConcentration;
+    [SerializeField]
+    private float sizeFactor;
+
+    [SerializeField]
+    private Pheromone drawGizmosForPheromone;
     
     private void Start() {
         world.RegisterPheromoneManager(this);
@@ -24,16 +31,20 @@ public class PheromoneManager : MonoBehaviour
 
     private void Update() {
         foreach (PheromoneGrid grid in pheromoneGrids.Values) {
-            grid.Update(Time.deltaTime);
+            grid.Dissipate(Time.deltaTime, maxConcentration, sizeFactor);
         }
     }
 
     private void OnDrawGizmos() {
         if (pheromoneGrids == null) return;
+        foreach ((Vector2 location, float concentration) in pheromoneGrids[drawGizmosForPheromone].worldConcentrations) {
+            Gizmos.DrawWireSphere((Vector3)location, concentration * 0.1f);
+        }
+    }
+
+    public void ClearAllPheromones() {
         foreach (PheromoneGrid grid in pheromoneGrids.Values) {
-            foreach ((Vector2 location, float concentration) in grid.worldConcentrations) {
-                Gizmos.DrawWireSphere((Vector3)location, concentration * 0.1f);
-            }
+            grid.Clear();
         }
     }
 
@@ -70,7 +81,8 @@ public class PheromoneGrid
         }
         
         // average concentration of sample area
-        return sum / (size * size);
+        int sampleSideLength = size + 1;
+        return sum / (sampleSideLength * sampleSideLength);
     }
     
     public void Excrete(Vector2 continuousLocation, float amount) {
@@ -84,15 +96,19 @@ public class PheromoneGrid
         }
     }
 
-    public void Update(float timeStep) {
+    public void Dissipate(float timeStep, float maxConcentration, float sizeFacor) {
         Vector2Int[] keys = pheromoneConcentrations.Keys.ToArray();
 
         foreach (Vector2Int location in keys) {
-            pheromoneConcentrations[location] *= Mathf.Pow(dissipation, timeStep);
+            float concentration = pheromoneConcentrations[location] * sizeFacor;
+            pheromoneConcentrations[location] -= dissipation * timeStep / concentration;
+            pheromoneConcentrations[location] = Mathf.Min(maxConcentration, pheromoneConcentrations[location]);
             if (pheromoneConcentrations[location] <= 0) pheromoneConcentrations.Remove(location);
         }
         
     }
+
+    public void Clear() => pheromoneConcentrations.Clear();
 
     public IEnumerable<(Vector2, float)> worldConcentrations {
         get { return pheromoneConcentrations.Select(p => (GridConfiguration.ToWorldPosition(p.Key), p.Value)); }

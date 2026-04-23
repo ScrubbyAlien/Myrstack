@@ -45,5 +45,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   world: {fileID: 11400000, guid: fb848b147a7ae7d44b4a6c5988191cd9, type: 2}
-  dissipation: 0.5
-  cellSize: 0.2
+  dissipation: 0.95
+  maxConcentration: 10

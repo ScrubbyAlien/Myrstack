@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f8108e108404a828504795b5c063822, type: 3}
   m_Name: Wander
   m_EditorClassIdentifier: 
-  curiosity: 0.21
+  curiosity: 0.315

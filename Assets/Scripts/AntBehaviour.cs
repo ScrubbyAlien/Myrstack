@@ -9,6 +9,9 @@ public class AntBehaviour : ScriptableObject
     [SerializeField]
     private Pheromone excretingPheromone;
     public Pheromone pheromone => excretingPheromone;
+    [SerializeField]
+    private Color color;
+    public Color antColor => color;
     
     [SerializeField]
     protected WeightedPart[] parts;

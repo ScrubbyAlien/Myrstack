@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f13c187d6ecd5b944a96aa83c163cb5e, type: 3}
   m_Name: FindFood
   m_EditorClassIdentifier: 
-  searchSize: 10
+  searchSize: 2

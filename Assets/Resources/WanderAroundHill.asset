@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: WanderAroundHill
   m_EditorClassIdentifier: 
   excretingPheromone: 0
+  color: {r: 0, g: 0, b: 0, a: 1}
   parts:
   - weight: 2
     part: {fileID: 11400000, guid: 8b4ad8331f27b034186527d6372cd7c3, type: 2}
