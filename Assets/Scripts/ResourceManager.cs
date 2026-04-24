@@ -16,6 +16,11 @@ public class ResourceManager : MonoBehaviour
     [SerializeField]
     private float foodSpawnTimeMin, foodSpawnTimeMax;
     private float nextSpawnTime;
+    [SerializeField]
+    private float initialClusters;
+    [SerializeField]
+    private float maxClusters;
+    
     
     private Dictionary<Vector2Int, FoodCluster> foodGrid;
 
@@ -24,13 +29,21 @@ public class ResourceManager : MonoBehaviour
         mCamera = Camera.main;
         foodGrid = new();
         nextSpawnTime = Time.time + Random.Range(foodSpawnTimeMin, foodSpawnTimeMax);
+
+        for (int i = 0; i < initialClusters; i++) {
+            InstantiateFoodCluster();
+        }
     }
 
     private void Update() {
-        // if (Time.time > nextSpawnTime) {
-        //     nextSpawnTime = Time.time + Random.Range(foodSpawnTimeMin, foodSpawnTimeMax);
-        //     CreateFood();
-        // }
+        if (foodGrid.Count == maxClusters) {
+            nextSpawnTime = Time.time + Random.Range(foodSpawnTimeMin, foodSpawnTimeMax);
+            return;
+        }
+        if (Time.time > nextSpawnTime) {
+            nextSpawnTime = Time.time + Random.Range(foodSpawnTimeMin, foodSpawnTimeMax);
+            InstantiateFoodCluster();
+        }
     }
 
     private void OnDrawGizmos() {

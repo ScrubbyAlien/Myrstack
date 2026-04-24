@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.687904, y: 0.40536627, z: 0.01702548}
-  m_LocalScale: {x: 1.1283791, y: 1.1283791, z: 1.1283791}
+  m_LocalScale: {x: 1.595769, y: 1.595769, z: 1.595769}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -45,10 +45,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb2e7a5bd038c3b489afed882266e5de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resourceManager: {fileID: 0}
   world: {fileID: 11400000, guid: fb848b147a7ae7d44b4a6c5988191cd9, type: 2}
   antPrefab: {fileID: 140785088581456078, guid: 2142ad2ecda0ec0439bf08443fb28ffa, type: 3}
-  capacity: 10
-  rate: 1
+  capacity: 20
+  addCapacity: 10
+  initialFood: 100
   areaPerCapacity: 0.1
 --- !u!212 &7173968189965996114
 SpriteRenderer:

@@ -31,7 +31,7 @@ MonoBehaviour:
     part: {fileID: 11400000, guid: 35d4cf6ff811e644fbfeac74369b46bf, type: 2}
     hideGizmos: 0
     enabled: 1
-  - weight: 0.1
-    part: {fileID: 11400000, guid: 791ecfe1d061ca44c9054c8ee9bd69fa, type: 2}
+  - weight: 1
+    part: {fileID: 11400000, guid: c5f87b28891551c4a98721cfce2856ee, type: 2}
     hideGizmos: 0
     enabled: 1

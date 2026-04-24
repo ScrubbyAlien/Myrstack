@@ -6,17 +6,22 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "World", menuName = "State/World")]
 public class World : ScriptableObject
 {
+    public event Action AntsChanged;
+    
     private List<Ant> ants;
     public Ant[] allAnts { get; private set; }
     public Ant[] allNonEnemyAnts { get; private set; }
-    public (Ant ant, Vector2Int coord)[] allAntGridCoords { get; private set; } 
+    public (Ant ant, Vector2Int coord)[] allAntGridCoords { get; private set; }
     
     public PheromoneManager pheromoneManager { get; private set; }
     public ResourceManager resourceManager { get; private set; }
     public Hill hill { get; private set; }
+    public Camera mainCamera { get; private set; }
     
     private void OnEnable()
     {
+        mainCamera = Camera.main;
+        
         ants = new();
         hill = null;
         pheromoneManager = null;
@@ -24,6 +29,7 @@ public class World : ScriptableObject
         allAntGridCoords = Array.Empty<(Ant, Vector2Int)>();
         allNonEnemyAnts = Array.Empty<Ant>();
         allAnts = Array.Empty<Ant>();
+        AntsChanged = null;
     }
 
     public void RegisterAnt(Ant ant)
@@ -46,6 +52,7 @@ public class World : ScriptableObject
             Vector2Int coord = GridConfiguration.ToGridPosition(ant.position);
             return (ant, coord);
         }).ToArray();
+        AntsChanged?.Invoke();
     }
 }
 

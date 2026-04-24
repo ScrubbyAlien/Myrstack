@@ -62,7 +62,7 @@ public class Ant : MonoBehaviour
         spawnPosition = transform.position;
         world.RegisterAnt(this);
         velocity = Random.insideUnitCircle;
-        if (currentMode == BehaviourMode.None) SetBehaviour(BehaviourMode.None);
+        if (!initialised) SetBehaviour(BehaviourMode.None);
     }
     
     private void FixedUpdate()

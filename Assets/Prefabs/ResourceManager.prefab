@@ -47,5 +47,7 @@ MonoBehaviour:
   world: {fileID: 11400000, guid: fb848b147a7ae7d44b4a6c5988191cd9, type: 2}
   foodPrefab: {fileID: 4425934038150785016, guid: cf7b7b667ed0145408ecff4e8d238622, type: 3}
   minDistanceFromCenter: 3.5
-  foodSpawnTimeMin: 4
-  foodSpawnTimeMax: 4
+  foodSpawnTimeMin: 30
+  foodSpawnTimeMax: 60
+  initialClusters: 3
+  maxClusters: 6

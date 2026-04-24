@@ -6,6 +6,7 @@ using UnityEngine;
 public class Hill : MonoBehaviour
 {
     public event Action<float> FoodCollected;
+    public event Action<float> CapacityChanged;
 
     [SerializeField]
     private ResourceManager resourceManager;
@@ -15,11 +16,13 @@ public class Hill : MonoBehaviour
     private Ant antPrefab;
     [SerializeField, Min(0)]
     private float capacity;
-    [SerializeField, Min(0)]
-    private float rate;
-    private float secondsPerAnt => 1 / rate;
-    private float nextSpawnTime;
+    public float hillCapacity => capacity;
+    [SerializeField]
+    private float addCapacity;
+    private bool atCapacity => world.allNonEnemyAnts.Length >= capacity;
 
+    [SerializeField]
+    private float initialFood;
     private float collectedFood;
     private GameObject antsParent;
 
@@ -35,57 +38,53 @@ public class Hill : MonoBehaviour
         UpdateScale();
     }
 
-    private void Start() {
+    private void Awake() {
         world.RegisterHill(this);
+    }
+    
+    private void Start() {
         antsParent = new GameObject("AntsParent");
+        collectedFood = initialFood;
+        FoodCollected?.Invoke(collectedFood);
+        CapacityChanged?.Invoke(capacity);
     }
 
-    private void Update() {
-        // if the hill is at capacity then don't spawn any more
-        if (world.allNonEnemyAnts.Length + 1 > capacity) return;    
-        
-        if (Time.time >= nextSpawnTime) {
-            Spawn();
-            nextSpawnTime = Time.time + secondsPerAnt;
-        }
-    }
-
-    private void Spawn() {
-        Ant ant = Instantiate(antPrefab, transform.position, Quaternion.identity);
+    private void Spawn(out Ant ant) {
+        if (atCapacity) {
+            ant = null;
+            return;
+        }    
+        ant = Instantiate(antPrefab, transform.position, Quaternion.identity);
         ant.transform.parent = antsParent.transform;
     }
 
-    public void AddCapacity(float additional) {
-        capacity += additional;
+    public void AddCapacity() {
+        capacity += addCapacity;
         UpdateScale();
+        CapacityChanged?.Invoke(capacity);
     }
 
-    public void SetAllAntBehaviours(string mode) {
-        if (Enum.TryParse<BehaviourMode>(mode, out BehaviourMode parsed)) {
-            foreach (Ant ant in world.allAnts) ant.SetBehaviour(parsed);
+    public void PayAndAddCapacity(float cost) {
+        if (PayFood(cost)) {
+            AddCapacity();
         }
-        else {
-            Debug.LogError($"Behaviour mode {mode} is not a valid enumeration of BehaviourMode", this);
+    } 
+    
+    public void PayAndSpawnForager(float cost) {
+        PayAndSpawnAnt(cost, BehaviourMode.Exploring);
+    }
+    
+    public void PayAndSpawnDefender(float cost) {
+        PayAndSpawnAnt(cost, BehaviourMode.Defending);
+    }
+
+    private void PayAndSpawnAnt(float cost, BehaviourMode mode) {
+        if (!atCapacity && PayFood(cost)) {
+            Spawn(out Ant ant);
+            ant.SetBehaviour(mode);
         }
     }
     
-    public void SetNoneAntBehaviours(string mode, int number) {
-        if (Enum.TryParse<BehaviourMode>(mode, out BehaviourMode parsed)) {
-            Ant[] uninitialisedAnts = world.allAnts.Where(a => !a.initialised).ToArray();
-            number = Mathf.Min(uninitialisedAnts.Length, number);
-            for (int i = 0; i < number; i++) {
-                uninitialisedAnts[i].SetBehaviour(parsed);
-            }
-        }
-        else {
-            Debug.LogError($"Behaviour mode {mode} is not a valid enumeration of BehaviourMode", this);
-        }
-    }
-
-    public void SetOneNoneAntBehaviour(string mode) {
-        SetNoneAntBehaviours(mode, 1);
-    }
-
     public void CollectFood(float amount) {
         collectedFood += amount;
         FoodCollected?.Invoke(collectedFood);
@@ -99,6 +98,15 @@ public class Hill : MonoBehaviour
             return true;
         }
         food = null;
+        return false;
+    }
+
+    private bool PayFood(float cost) {
+        if (cost <= collectedFood) {
+            collectedFood -= cost;
+            FoodCollected?.Invoke(collectedFood);
+            return true;
+        }
         return false;
     }
     
