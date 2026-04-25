@@ -19,11 +19,11 @@ MonoBehaviour:
     part: {fileID: 11400000, guid: 8b4ad8331f27b034186527d6372cd7c3, type: 2}
     hideGizmos: 0
     enabled: 1
-  - weight: 2.92
-    part: {fileID: 11400000, guid: 55bb3757ae00f084b9f8b0cbd9868bd3, type: 2}
-    hideGizmos: 0
-    enabled: 1
   - weight: 0.26
     part: {fileID: 11400000, guid: a2b5ab0a9125ed24a95a4c668148ab69, type: 2}
+    hideGizmos: 0
+    enabled: 1
+  - weight: 10
+    part: {fileID: 11400000, guid: c5f87b28891551c4a98721cfce2856ee, type: 2}
     hideGizmos: 0
     enabled: 1

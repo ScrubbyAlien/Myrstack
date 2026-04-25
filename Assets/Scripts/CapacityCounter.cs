@@ -13,9 +13,17 @@ public class CapacityCounter : MonoBehaviour
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start() {
-        world.hill.CapacityChanged += OnCapacityChanged;
         world.AntsChanged += OnAntsChanged;
-        UpdateTextField(0f, world.hill.hillCapacity);
+        if (world.hill) {
+            world.hill.CapacityChanged += OnCapacityChanged;
+            currentCapacity = world.hill.hillCapacity;
+            UpdateTextField(0f, world.hill.hillCapacity);
+        }
+        else world.HillRegistered += (hill) => {
+            hill.CapacityChanged += OnCapacityChanged;
+            currentCapacity = hill.hillCapacity;
+            UpdateTextField(0f, hill.hillCapacity);
+        };
     }
     
     private void UpdateTextField(float current, float capacity) {

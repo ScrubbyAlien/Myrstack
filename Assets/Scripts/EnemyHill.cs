@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -11,6 +12,18 @@ public class EnemyHill : MonoBehaviour
     private Ant antPrefab;
     [SerializeField]
     private float offscreenDistance;
+
+    
+    [SerializeField]
+    private float waveTimeMin, waveTimeMax;
+    private float nextWaveTime;
+    private float newNextWaveTime => Time.time + Random.Range(waveTimeMin, waveTimeMax);
+    [SerializeField]
+    private float waveDurationMin, waveDurationMax;
+    private float stopTime => Time.time + Random.Range(waveDurationMin, waveDurationMax);
+    [SerializeField]
+    private float waveRateOverTime;
+    private float waveRate => waveRateOverTime * Time.time;
     
     private List<Vector2> spawnPoints;
 
@@ -21,6 +34,23 @@ public class EnemyHill : MonoBehaviour
         spawnPoints.Add(RandomPointOutsideScreen());
 
         enemyAntParent = new GameObject("EnemyAntParent");
+        nextWaveTime = newNextWaveTime;
+    }
+
+    private void Update() {
+        if (Time.time > nextWaveTime) {
+            spawnPoints.Add(RandomPointOutsideScreen());
+            StartCoroutine(Wave(stopTime, waveRate));
+            nextWaveTime = newNextWaveTime;
+        }
+    }
+    
+    private IEnumerator Wave(float stopTime, float rate) {
+        WaitForSeconds secondsBetweenSpawn = new WaitForSeconds(1 / rate);
+        while (Time.time < stopTime) {
+            SpawnEnemyAnt();
+            yield return secondsBetweenSpawn;
+        }
     }
 
     public void SpawnEnemyAnt() {
@@ -70,4 +100,5 @@ public class EnemyHill : MonoBehaviour
 
         return new Vector2(randomX, randomY);
     }
+
 }

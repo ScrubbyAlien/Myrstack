@@ -39,7 +39,7 @@ public class Hill : MonoBehaviour
     }
 
     private void Awake() {
-        world.RegisterHill(this);
+        // world.RegisterHill(this);
     }
     
     private void Start() {
@@ -47,6 +47,7 @@ public class Hill : MonoBehaviour
         collectedFood = initialFood;
         FoodCollected?.Invoke(collectedFood);
         CapacityChanged?.Invoke(capacity);
+        world.RegisterHill(this);
     }
 
     private void Spawn(out Ant ant) {

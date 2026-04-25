@@ -2,11 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [CreateAssetMenu(fileName = "World", menuName = "State/World")]
 public class World : ScriptableObject
 {
     public event Action AntsChanged;
+    public event Action<Hill> HillRegistered;
     
     private List<Ant> ants;
     public Ant[] allAnts { get; private set; }
@@ -18,8 +20,18 @@ public class World : ScriptableObject
     public Hill hill { get; private set; }
     public Camera mainCamera { get; private set; }
     
-    private void OnEnable()
-    {
+    public void OnEnable() {
+        Reset();
+        SceneManager.activeSceneChanged += ResetOnSceneLoad;
+    }
+
+    public void OnDisable() {
+        SceneManager.activeSceneChanged -= ResetOnSceneLoad;
+    }
+    
+    private void Reset() {
+        Debug.Log("reset");
+        
         mainCamera = Camera.main;
         
         ants = new();
@@ -30,6 +42,11 @@ public class World : ScriptableObject
         allNonEnemyAnts = Array.Empty<Ant>();
         allAnts = Array.Empty<Ant>();
         AntsChanged = null;
+        HillRegistered = null;
+    }
+    
+    private void ResetOnSceneLoad(Scene _s1, Scene _s2) {
+        Reset();
     }
 
     public void RegisterAnt(Ant ant)
@@ -41,7 +58,10 @@ public class World : ScriptableObject
         ants.Remove(ant);
         UpdateAntCollections();
     }
-    public void RegisterHill(Hill hill) => this.hill = hill;
+    public void RegisterHill(Hill hill) {
+        this.hill = hill;
+        HillRegistered?.Invoke(hill);
+    }
     public void RegisterPheromoneManager(PheromoneManager manager) => pheromoneManager = manager;
     public void RegisterResourceManager(ResourceManager manager) => resourceManager = manager;
 
@@ -54,5 +74,6 @@ public class World : ScriptableObject
         }).ToArray();
         AntsChanged?.Invoke();
     }
+    
 }
 

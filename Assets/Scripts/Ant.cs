@@ -85,6 +85,7 @@ public class Ant : MonoBehaviour
 
     private void Update() {
         UpdatePosition(velocity);
+        if (!world.hill) return;
         
         if (Vector3.SqrMagnitude((Vector2)world.hill.transform.position - position) < world.hill.radius * world.hill.radius) {
             timer = 0;

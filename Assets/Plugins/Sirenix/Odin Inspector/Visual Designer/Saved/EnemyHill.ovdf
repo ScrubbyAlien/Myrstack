@@ -1,0 +1,64 @@
+OVDF v1.1
+EnemyHill, Assembly-CSharp
+MetaGuid:2e5091eae601a1e4d9f1e3b7af366f18
+
+# $XdguA3DJGNDUEa3aNabq6T
+Position: $root:3
++ [Sirenix.OdinInspector.TitleGroupAttribute]
+	GroupName = "Wave"
+	BoldTitle = True
+	HorizontalLine = False
+
+# $Exhu8VjGmQBFYLaSZiFTxt
+Position: $XdguA3DJGNDUEa3aNabq6T:0
++ [Sirenix.OdinInspector.ColumnGroupAttribute]
+
+# $Q8Q2E8biPnEhVf3yPkyHnR
+Position: $Exhu8VjGmQBFYLaSZiFTxt:0
++ [Sirenix.OdinInspector.ColumnGroupAttribute+ColumnSubGroupAttribute]
+
+# $4etyZARcDnaL7UESmxwhPL
+Position: $Exhu8VjGmQBFYLaSZiFTxt:1
++ [Sirenix.OdinInspector.ColumnGroupAttribute+ColumnSubGroupAttribute]
+
+# $Mw3LEtWTHw4CqMURNWqtQz
+Position: $XdguA3DJGNDUEa3aNabq6T:1
++ [Sirenix.OdinInspector.ColumnGroupAttribute]
+
+# $5bKW46e5TacKN8NQ8j9Mcw
+Position: $Mw3LEtWTHw4CqMURNWqtQz:0
++ [Sirenix.OdinInspector.ColumnGroupAttribute+ColumnSubGroupAttribute]
+
+# $38oGSbBYLZURgtCn4gby77
+Position: $Mw3LEtWTHw4CqMURNWqtQz:1
++ [Sirenix.OdinInspector.ColumnGroupAttribute+ColumnSubGroupAttribute]
+
+# waveTimeMin
+Position: $Q8Q2E8biPnEhVf3yPkyHnR:0
++ [Sirenix.OdinInspector.LabelTextAttribute]
+	Text = "Min Wait time"
+
+# waveTimeMax
+Position: $4etyZARcDnaL7UESmxwhPL:0
++ [Sirenix.OdinInspector.LabelTextAttribute]
+	Text = "Max Wait Time"
+
+# waveSizeOverTime
+Position: $XdguA3DJGNDUEa3aNabq6T:2
++ [Sirenix.OdinInspector.LabelTextAttribute]
+	Text = "Size Over Time"
+
+# waveDurationMin
+Position: $5bKW46e5TacKN8NQ8j9Mcw:0
++ [Sirenix.OdinInspector.LabelTextAttribute]
+	Text = "Min Duration"
+
+# waveDurationMax
+Position: $38oGSbBYLZURgtCn4gby77:0
++ [Sirenix.OdinInspector.LabelTextAttribute]
+	Text = "Max Duration"
+
+# waveRateOverTime
+Position: $XdguA3DJGNDUEa3aNabq6T:2
++ [Sirenix.OdinInspector.LabelTextAttribute]
+	Text = "Rate Over Time"
